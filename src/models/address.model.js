@@ -20,5 +20,5 @@ const addressSchema = new Schema({
     }
 }) 
 
-const addressModel = model('direccion', addressSchema);
+const addressModel = model('direccions', addressSchema);
 module.exports = addressModel;

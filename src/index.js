@@ -3,15 +3,17 @@ const express = require('express');
 const server = express()
 //Rutas de la api
 const { getUsuarios, createUser, userUpdate, userDelete, login} = require('./controlers/user.controler');
-const { getAddress, addressUpdate, addressDelete} = require('./controlers/address.controler');
-const { getMovies } = require('./controlers/peliculas.controler');
+const { getAddress, addressUpdate, addressDelete, addressByclient} = require('./controlers/address.controler');
+const { getMovies, oneMovie } = require('./controlers/peliculas.controler');
 //Conexion Mongoose
 const mongoose = require('mongoose');
+const cors = require('cors')
 //variables de entorno ENV
 require('dotenv').config()
 const port = process.env.PORT || 3000;
 //Middleware
 server.use(express.json())
+server.use(cors({origin:'*'}));
 //Conexion mongo DB
 mongoose.connect(process.env.HOSTDB).then(()=>{
 	console.log('conexion a mongoDB');
@@ -22,12 +24,14 @@ server.post('/user', createUser);
 server.put('/user:id', userUpdate);
 server.delete('/user/:id', userDelete);
 server.post('/user/login', login);
-//Direcciones
-server.get('/direccion', getAddress);
-server.put('/direccion:id', addressUpdate);
-server.delete('/direccion/:id', addressDelete);
+//Direcciones 
+server.get('/direccions', getAddress);
+server.get('/direccions/:usuario', addressByclient);
+server.put('/direccions/:id', addressUpdate);
+server.delete('/direccions/:id', addressDelete);
 //Peliculas
 server.get('/peliculas', getMovies);
+server.get('/peliculas/:id', oneMovie);
 //Levantar servidor
 server.listen(port, ()=>{console.log('Servidor funcionando' + port)})
 }).catch((error)=>{
