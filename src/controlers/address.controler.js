@@ -11,6 +11,22 @@ const getAddress = async (req, res) => {
 	   })
 	   .send()
 }
+//POST
+const createAddress = async (req, res) => {
+	const { direccion, codigoPostal, ciudad, usuario} = req.body;
+	const address = new addressModel({
+		direccion: direccion,
+		codigoPostal: codigoPostal, 
+		ciudad: ciudad,
+		usuario: usuario
+	})
+	await address.save()
+	res 
+	   .status(200)
+	   .json({
+	   	   message: 'Direecion creada'
+	   })
+}
 //PUT
 const addressByclient = async (req, res) => {
 	const {usuario} = req.params;
@@ -53,5 +69,6 @@ module.exports = {
 	getAddress,
     addressUpdate,
     addressDelete,
-	addressByclient
+	addressByclient,
+	createAddress
 }
