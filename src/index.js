@@ -5,6 +5,7 @@ const server = express()
 const { getUsuarios, createUser, userUpdate, userDelete, login} = require('./controlers/user.controler');
 const { getAddress, addressUpdate, addressDelete, addressByclient, createAddress} = require('./controlers/address.controler');
 const { getMovies, oneMovie } = require('./controlers/peliculas.controler');
+const { createCart, cartByclient, cartDelete } = require('./controlers/cart.controler');
 //Conexion Mongoose
 const mongoose = require('mongoose');
 const cors = require('cors')
@@ -33,6 +34,10 @@ server.delete('/direccions/:id', addressDelete);
 //Peliculas
 server.get('/peliculas', getMovies);
 server.get('/peliculas/:id', oneMovie);
+///Carrito
+server.get('/carrito/:id', cartByclient);
+server.post('/carrito/:usuario', createCart);
+server.delete('/carrito/:id', cartDelete);
 //Levantar servidor
 server.listen(port, ()=>{console.log('Servidor funcionando' + port)})
 }).catch((error)=>{

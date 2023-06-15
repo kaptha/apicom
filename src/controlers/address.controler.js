@@ -24,7 +24,7 @@ const createAddress = async (req, res) => {
 	res 
 	   .status(200)
 	   .json({
-	   	   message: 'Direecion creada'
+	   	   message: 'Direccion creada'
 	   })
 }
 //PUT
