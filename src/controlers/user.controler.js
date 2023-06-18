@@ -66,7 +66,7 @@ const login = async(req, res)=>{
 		   .json({
 			message: 'Usuario no encontrado'
 		   })
-		   .send()
+		   
 	}
 	const isMatch = bcrypt.compareSync(password, user.password);
 	if(isMatch){
@@ -76,19 +76,20 @@ const login = async(req, res)=>{
 				  .json({
 					message: 'Usuario logeado',
 					user: {
-						age: user.age,
+						id: user.id,
+						password: user.password,
 						email: user.email
 					},
 					token:token
 				  })
-				  .send()
+				  
 	}else{
 		return res
 				  .status(401)
 				  .json({
 					message: 'Usuario incorrecto'
 				  })
-				  .send()
+				  
 	}
 }
 module.exports = {

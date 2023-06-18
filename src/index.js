@@ -14,7 +14,7 @@ require('dotenv').config()
 const port = process.env.PORT || 3000;
 //Middleware
 server.use(express.json())
-server.use(cors({origin:'*'}));
+server.use(cors());
 //Conexion mongo DB
 mongoose.connect(process.env.HOSTDB).then(()=>{
 	console.log('conexion a mongoDB');
@@ -26,7 +26,7 @@ server.put('/user:id', userUpdate);
 server.delete('/user/:id', userDelete);
 server.post('/user/login', login);
 //Direcciones 
-server.get('/direccions', getAddress);
+//server.get('/direccions', getAddress);
 server.post('/direccions', createAddress);
 server.get('/direccions/:usuario', addressByclient);
 server.put('/direccions/:id', addressUpdate);
