@@ -19,9 +19,9 @@ const createAddress = async (req, res) => {
 }
 //PUT
 const addressByclient = async (req, res) => {
-	const {usuario} = req.params;
+	const {usuario} = req.params;	
 	const address = await addressModel.find({usuario:usuario});
-	console.log(address);
+	
 	res
 	   .status(200)
 	   .json({

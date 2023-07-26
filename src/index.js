@@ -2,8 +2,8 @@
 const express = require('express');
 const server = express()
 //Rutas de la api
-const { getUsuarios, createUser, userUpdate, userDelete, login} = require('./controlers/user.controler');
-const { getAddress, addressUpdate, addressDelete, addressByclient, createAddress} = require('./controlers/address.controler');
+const { getUsuarios, createUser, userUpdate, userDelete, login, getUsuario} = require('./controlers/user.controler');
+const { addressUpdate, addressDelete, addressByclient, createAddress} = require('./controlers/address.controler');
 const { getMovies, oneMovie } = require('./controlers/peliculas.controler');
 const { createCart, cartByclient, cartDelete } = require('./controlers/cart.controler');
 //Conexion Mongoose
@@ -20,6 +20,7 @@ mongoose.connect(process.env.HOSTDB).then(()=>{
 	console.log('conexion a mongoDB');
 	//Verbos
 //Usuarios
+server.get('/user/:id', getUsuario);
 server.get('/user', getUsuarios);
 server.post('/user', createUser);
 server.put('/user:id', userUpdate);
@@ -27,7 +28,7 @@ server.delete('/user/:id', userDelete);
 server.post('/user/login', login);
 //Direcciones 
 //server.get('/direccions', getAddress);
-server.post('/direccions', createAddress);
+server.post('/direccions/', createAddress);
 server.get('/direccions/:usuario', addressByclient);
 server.put('/direccions/:id', addressUpdate);
 server.delete('/direccions/:id', addressDelete);

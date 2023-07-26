@@ -10,8 +10,16 @@ const getUsuarios = async (req, res) => {
 	   .status(200)
 	   .json({
 	   	  users: users
+	   })	   
+}
+const getUsuario = async (req, res) => {
+	const id = req.params.id;
+	const user = await userModel.findById(id);
+	res
+	   .status(200)
+	   .json({
+		user: user
 	   })
-	   .send()
 }
 //POST
 const createUser = async (req, res) => {
@@ -70,7 +78,7 @@ const login = async(req, res)=>{
 	}
 	const isMatch = bcrypt.compareSync(password, user.password);
 	if(isMatch){
-		const token = generateJWT(user._id);
+		
 		return res
 				  .status(200)
 				  .json({
@@ -80,7 +88,7 @@ const login = async(req, res)=>{
 						password: user.password,
 						email: user.email
 					},
-					token:token
+					id: user.id,
 				  })
 				  
 	}else{
@@ -93,6 +101,7 @@ const login = async(req, res)=>{
 	}
 }
 module.exports = {
+	getUsuario,
 	getUsuarios,
 	createUser,
 	userUpdate,
